@@ -1,0 +1,48 @@
+flowchart TD
+    A[Excel File\nMale Infertility Data.xlsx] -->|Load| B[DataAnalyzer Class]
+    
+    subgraph Database
+        C[(Patient Table)]
+        D[(Medical History)]
+        E[(Lifestyle Factors)]
+        F[(Diagnostic Results)]
+        G[(Treatment Outcomes)]
+        H[(Knowledge & Attitudes)]
+        I[(Environmental Factors)]
+        J[(Sexual Health)]
+        
+        C --- D
+        C --- E
+        C --- F
+        C --- G
+        C --- H
+        C --- I
+        C --- J
+    end
+    
+    B -->|Clean & Process| Database
+    
+    Database -->|Extract Data| K[Visualizer Class]
+    Database -->|Analyze Data| L[FullDatasetClustering Class]
+    
+    K -->|Generate| M[Histogram\nAge Distribution]
+    L -->|Perform| N[KMeans Clustering]
+    N -->|Visualize with| O[PCA Reduction]
+    N -->|Profile| P[Cluster Analysis]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style K fill:#bbf,stroke:#333,stroke-width:2px
+    style L fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#dfd,stroke:#333,stroke-width:2px
+    style D fill:#dfd,stroke:#333,stroke-width:2px
+    style E fill:#dfd,stroke:#333,stroke-width:2px
+    style F fill:#dfd,stroke:#333,stroke-width:2px
+    style G fill:#dfd,stroke:#333,stroke-width:2px
+    style H fill:#dfd,stroke:#333,stroke-width:2px
+    style I fill:#dfd,stroke:#333,stroke-width:2px
+    style J fill:#dfd,stroke:#333,stroke-width:2px
+    style M fill:#ffd,stroke:#333,stroke-width:2px
+    style N fill:#ffd,stroke:#333,stroke-width:2px
+    style O fill:#ffd,stroke:#333,stroke-width:2px
+    style P fill:#ffd,stroke:#333,stroke-width:2px
