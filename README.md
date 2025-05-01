@@ -71,9 +71,9 @@ Le projet est conçu pour une exécution dans [Google Colab](https://colab.resea
 ## Structure du Projet
 
 ```
-├── main.py
+├── Male Infertility Data.xlsx
 ├── README.md
-└── Male Infertility Data.xlsx   (Fichier à téléverser lors de l'exécution)
+└── programme_POO.ipynb
 ```
 
 - **main.py :** Regroupe l'ensemble du code source, incluant les classes `DataAnalyzer`, `Visualizer` et (optionnellement) `FullDatasetClustering`, ainsi que la fonction principale orchestrant le processus.
