@@ -19,7 +19,7 @@ Les objectifs incluent :
 - Organiser le code en adoptant les principes de la Programmation Orientée Objet à travers l'utilisation de classes :
   - La classe `DataAnalyzer` gère le chargement, le nettoyage et la création de colonnes composites (notamment le **Knowledge_Score** et le **Age_Group**).
   - La classe `Visualizer` permet de visualiser les données (histogrammes, visualisation des clusters, etc.).
-- **(Nouveau) Clustering basé sur le Knowledge_Score :**  
+- **Clustering basé sur le Knowledge_Score :**  
   À partir des réponses aux questions Q8 à Q14, on calcule un score composite (**Knowledge_Score**). Ce score, après standardisation, est soumis à l'algorithme **KMeans** (avec *k = 3*) afin de segmenter les patients en trois classes :
   - **Poor (faibles connaissances)**
   - **Moderate (connaissances modérées)**
