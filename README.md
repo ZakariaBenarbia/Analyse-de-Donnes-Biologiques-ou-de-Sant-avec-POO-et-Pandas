@@ -1,8 +1,3 @@
-Voici la version mise à jour du fichier README.md, incluant des explications détaillées sur le diagramme de score (c’est-à-dire la manière dont le **Knowledge_Score** est calculé et utilisé pour assigner des groupes de connaissances) ainsi qu'une explication sur la nature optionnelle de la classe **FullDatasetClustering**.
-
----
-
-```markdown
 # TP-Programmation-Orient-e-Objet
 
 # Analyse de Données Biologiques ou de Santé avec POO et Pandas
