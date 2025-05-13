@@ -78,12 +78,15 @@ Ce projet est conçu pour être exécuté dans [Google Colab](https://colab.rese
 
    Ce clustering vise une répartition d'environ 25 % de patients avec de faibles connaissances, 67,4 % avec des connaissances modérées et 7,8 % avec de bonnes connaissances.
 
-5. **(Optionnel) Clustering Global**  
+5.Fonctionnalités du Clustering (Features)
+L'analyse de clustering repose principalement sur le Knowledge_Score, une fonctionnalité composite obtenue en faisant la somme des réponses aux questions Q8 à Q14. Ce score quantifie la compréhension des causes de l'infertilité masculine chez chaque patient. La classe KnowledgeClustering standardise ce score et applique l'algorithme KMeans avec k = 3
+
+6. **(Optionnel) Clustering Global**  
    La classe `FullDatasetClustering` offre une analyse complémentaire, en réalisant un clustering sur l'ensemble du dataset après encodage one-hot et standardisation.  
    **Pourquoi cette classe est-elle optionnelle ?**  
    Elle permet d'explorer des patterns supplémentaires en combinant toutes les variables disponibles, mais elle n'est pas indispensable pour atteindre l'objectif principal qui est de segmenter les patients selon leur **Knowledge_Score**.
 
-6. **Visualisation des Résultats**  
+7. **Visualisation des Résultats**  
    La classe `Visualizer` génère :
    - Un histogramme de la variable `Age`.
    - Un histogramme coloré du **Knowledge_Score** indiquant les clusters (Knowledge_Cluster).
