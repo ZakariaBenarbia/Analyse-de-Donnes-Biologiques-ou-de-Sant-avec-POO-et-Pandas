@@ -19,15 +19,11 @@ Les objectifs incluent :
 - Organiser le code en adoptant les principes de la Programmation Orientée Objet à travers l'utilisation de classes :
   - La classe `DataAnalyzer` gère le chargement, le nettoyage et la création de colonnes composites (notamment le **Knowledge_Score** et le **Age_Group**).
   - La classe `Visualizer` permet de visualiser les données (histogrammes, visualisation des clusters, etc.).
-- **Clustering basé sur le Knowledge_Score :**  
+- **(Nouveau) Clustering basé sur le Knowledge_Score :**  
   À partir des réponses aux questions Q8 à Q14, on calcule un score composite (**Knowledge_Score**). Ce score, après standardisation, est soumis à l'algorithme **KMeans** (avec *k = 3*) afin de segmenter les patients en trois classes :
   - **Poor (faibles connaissances)**
   - **Moderate (connaissances modérées)**
   - **Good (bonnes connaissances)**
-  
-  L'objectif est d'obtenir une segmentation similaire à celle de l'article, où environ 7,8 % des patients présentent une bonne compréhension, 67,4 % une compréhension modérée, et environ 25 % des patients ont de faibles connaissances.
-  
-- (Optionnel) La réalisation d'un clustering global sur l'ensemble des variables (après encodage one-hot et standardisation) et une réduction de dimension par **PCA** pour la visualisation, ainsi que le profilage des clusters (exprimé par des moyennes pour des variables clés).
 
 ## Table des Matières
 
@@ -50,7 +46,7 @@ Les objectifs incluent :
 
 Pour installer les dépendances, utilisez la commande suivante :
 
-
+```bash
 pip install pandas seaborn matplotlib scikit-learn
 
 Origine du Dataset
@@ -157,5 +153,5 @@ Ouvrir le fichier main.py dans Google Colab ou un environnement de développemen
 
 Téléverser le fichier Male Infertility Data.xlsx lors de l'exécution du script.
 
-Lancer le script. Le programme chargera et nettoiera les données, affichera un histogramme pour la variable Age, puis (optionnellement) exécutera le clustering sur le Knowledge_Score pour segmenter les patients en trois groupes ("Poor", "Moderate", "Good") et visualisera les résultats.
+Lancer le script. Le programme chargera et nettoiera les données, affichera un histogramme pour la variable Age, puis exécutera le clustering sur le Knowledge_Score pour segmenter les patients en trois groupes ("Poor", "Moderate", "Good") et visualisera les résultats.
 
