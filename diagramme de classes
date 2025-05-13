@@ -1,0 +1,37 @@
+classDiagram
+direction TB
+    class DataAnalyzer {
+        - filepath: string
+        - data: DataFrame
+        + load_data() : void
+        + clean_data() : void
+        + compute_composite_columns() : void
+        + descriptive_statistics() : void
+        + missing_values_report() : void
+        + filter_data(column: string, condition) : DataFrame
+    }
+    class Visualizer {
+        - data: DataFrame
+        + plot_histogram(column: string, bins: int) : void
+        + plot_knowledge_clusters() : void
+    }
+    class KnowledgeClustering {
+        - df: DataFrame
+        - model: KMeans
+        + run_clustering() : DataFrame
+        + print_cluster_frequencies() : void
+    }
+    class FullDatasetClustering {
+        - raw_data: DataFrame
+        - data: DataFrame
+        - scaler: StandardScaler
+        - kmeans_model: KMeans
+        - cluster_labels: array
+        + preprocess() : DataFrame
+        + run_clustering(n_clusters: int) : DataFrame
+        + visualize_clusters(n_components: int) : tuple
+    }
+
+    DataAnalyzer --> Visualizer : "utilise"
+    DataAnalyzer --> KnowledgeClustering : "transmet les données"
+    DataAnalyzer --> FullDatasetClustering : "optionnelle"
