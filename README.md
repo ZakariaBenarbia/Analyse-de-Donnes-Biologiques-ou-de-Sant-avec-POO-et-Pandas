@@ -4,42 +4,31 @@
 
 ## Description
 
-Ce projet analyse un dataset de santé portant sur l'infertilité masculine en appliquant les principes de la Programmation Orientée Objet (POO) et la bibliothèque **Pandas**. Le dataset (*Male Infertility Data.xlsx*) comporte de nombreuses variables couvrant des aspects démographiques, biologiques et comportementaux de l'infertilité masculine. Le dataset provient de Mendeley Data et est accessible via le lien suivant : [https://data.mendeley.com/datasets/fyk47fnhfs/1](https://data.mendeley.com/datasets/fyk47fnhfs/1).
+Ce projet analyse un dataset de santé portant sur l'infertilité masculine en appliquant les principes de la Programmation Orientée Objet (POO) et la bibliothèque **Pandas**. Le dataset (*Male Infertility Data.xlsx*) comporte de nombreuses variables couvrant des aspects démographiques, biologiques et comportementaux de l'infertilité masculine. Le dataset provient de Mendeley Data et est accessible via ce [lien](https://data.mendeley.com/datasets/fyk47fnhfs/1).
 
-Ce projet s'inspire de l'article suivant :
+Ce projet s'inspire de l'article suivant :
 
 > **Knowledge, Attitudes, Beliefs, and Practices Towards the Causes of Male Infertility Among Urology Outpatients in Abuja Hospitals**  
 > Titilola T. Obilade, Peter O. Koleoso, Oluchi A. Eke, Faizat F. Adeniran, Nabila S. Musa, Sa'adah G. Ibrahim  
 > [DOI](https://doi.org/10.21203/rs.3.rs-5902036/v1)
 
-Les objectifs incluent :
+Les objectifs incluent :
 
-- Charger et nettoyer un dataset Excel à l'aide de **Pandas**.
-- Explorer les données via des statistiques descriptives et la génération d'un histogramme pour la variable `Age`.
-- Organiser le code en adoptant les principes de la Programmation Orientée Objet à travers l'utilisation de classes :
-  - La classe `DataAnalyzer` gère le chargement, le nettoyage et la création de colonnes composites (notamment le **Knowledge_Score** et le **Age_Group**).
-  - La classe `Visualizer` permet de visualiser les données (histogrammes, visualisation des clusters, etc.).
-- **(Nouveau) Clustering basé sur le Knowledge_Score et diagramme de score :**  
-  À partir des réponses aux questions Q8 à Q14, on calcule un score composite appelé **Knowledge_Score**. Ce score représente la compréhension du patient des causes de l’infertilité masculine.  
-  **Diagramme de score** : Le score est obtenu en faisant la somme des réponses (supposées binaires ou codées numériquement) aux questions Q8 à Q14. Ce Knowledge_Score sert ensuite d'entrée pour l'algorithme de clustering KMeans, qui subdivise les patients en trois groupes distincts.  
-  Les clusters obtenus sont triés selon leurs centroïdes, permettant ainsi d'attribuer les labels suivants :
-  - **Poor (faibles connaissances)** : Cluster avec le centroïde le plus faible.
-  - **Moderate (connaissances modérées)** : Cluster avec le centroïde intermédiaire.
-  - **Good (bonnes connaissances)** : Cluster avec le centroïde le plus élevé.  
-  L'objectif est d'obtenir une répartition proche de celle rapportée dans l'article (environ 7,8 % Good, 67,4 % Moderate et 25 % Poor).
-
-- (Optionnel) La réalisation d'un clustering global sur l'ensemble des variables (après encodage one-hot et standardisation) ainsi que la réduction de dimension par **PCA** pour la visualisation, avec un profilage des clusters (exprimé par des moyennes pour des variables clés).
-
-> **Pourquoi la classe FullDatasetClustering est-elle optionnelle ?**  
-> La classe **FullDatasetClustering** représente une analyse complémentaire qui va au-delà de l'objectif principal du projet. Le cœur de l'analyse se concentre sur le **Knowledge_Score** pour segmenter les patients en trois groupes (Poor, Moderate, Good). L'utilisation de **FullDatasetClustering**, qui réalise un clustering sur l'ensemble des variables du dataset (numériques et encodées), permet d'explorer d'autres patterns et de réaliser une analyse plus globale. Toutefois, cette étape complexifie le pipeline en ajoutant des étapes d’encodage, de standardisation et de réduction dimensionnelle. Ainsi, elle est proposée en option aux utilisateurs souhaitant approfondir l'analyse du dataset dans son ensemble, sans être indispensable pour atteindre l'objectif principal.
+- Charger et nettoyer un dataset Excel avec **Pandas**.
+- Explorer les données à l'aide de statistiques descriptives et d'un histogramme pour la variable `Age`.
+- Organiser le code selon les principes de la Programmation Orientée Objet, avec les classes suivantes :
+  - **DataAnalyzer** se charge du chargement, du nettoyage et de la création de colonnes composites (notamment **Knowledge_Score** et **Age_Group**).
+  - **Visualizer** permet de générer des visualisations (histogrammes, affichage des clusters, etc.).
+  - **KnowledgeClustering** effectue un clustering basé uniquement sur le **Knowledge_Score** pour segmenter les patients en trois groupes (Poor, Moderate, Good).
+  - **FullDatasetClustering** fournit en complément une analyse globale par clustering sur l’ensemble des variables du dataset.  
+    *Cette dernière classe est optionnelle* car elle va au-delà du but principal qui est de segmenter les patients sur la base de leur compréhension (Knowledge_Score).
 
 ## Table des Matières
 
 - [Installation](#installation)
 - [Utilisation](#utilisation)
 - [Structure du Projet](#structure-du-projet)
-- [Classes Principales](#classes-principales)
-- [Diagramme de Score et Explications](#diagramme-de-score-et-explications)
+- [Diagramme de Classes et Explications](#diagramme-de-classes-et-explications)
 - [Références](#références)
 
 ## Installation
@@ -47,13 +36,13 @@ Les objectifs incluent :
 ### Prérequis
 
 - Python 3.6 ou version supérieure.
-- Bibliothèques requises :
+- Bibliothèques requises :
   - `pandas`
   - `seaborn`
   - `matplotlib`
   - `scikit-learn`
 
-Installation des dépendances avec la commande suivante :
+Pour installer les dépendances, exécutez :
 
 ```bash
 pip install pandas seaborn matplotlib scikit-learn
@@ -61,42 +50,43 @@ pip install pandas seaborn matplotlib scikit-learn
 
 ### Origine du Dataset
 
-Dataset obtenu sur Mendeley Data via [ce lien](https://data.mendeley.com/datasets/fyk47fnhfs/1).
+Le dataset est récupéré sur Mendeley Data via ce [lien](https://data.mendeley.com/datasets/fyk47fnhfs/1).
 
 ### Téléversement du Dataset
 
-Le projet est conçu pour une exécution dans [Google Colab](https://colab.research.google.com/) ou dans un environnement local. Le fichier Excel devra être téléversé lors de l'exécution du script.
+Ce projet est conçu pour être exécuté dans [Google Colab](https://colab.research.google.com/) ou dans un environnement local. Le fichier Excel devra être téléversé lors de l'exécution du script.
 
 ## Utilisation
 
 1. **Chargement et Nettoyage des Données**  
-   La classe `DataAnalyzer` charge le fichier Excel et nettoie le dataset en remplissant les valeurs manquantes (médiane pour les variables numériques et mode pour les variables catégorielles).
+   La classe `DataAnalyzer` charge le fichier Excel et nettoie le dataset en remplissant les valeurs manquantes (médiane pour les numériques, mode pour les catégories).
 
 2. **Création de Colonnes Composites**  
-   Après nettoyage, le programme calcule :
+   Après le nettoyage, le programme calcule :
    - Le **Knowledge_Score** en sommant les réponses aux questions Q8 à Q14.
-   - Le **Age_Group** par regroupement de la variable `Age` (exemples : `<=30`, `31-40`, `41-50`, `>=51`).
+   - Le **Age_Group** en regroupant les âges (par exemple, `<=30`, `31-40`, `41-50`, `>=51`).
 
 3. **Analyse Exploratoire**  
-   Un histogramme de la variable `Age` est généré afin d'examiner la distribution avant l'application d'autres méthodes d'analyse.
+   Un histogramme de la variable `Age` est généré pour visualiser la distribution initiale.
 
 4. **Clustering Basé sur le Knowledge_Score**  
-   La nouvelle fonctionnalité de clustering extrait et standardise la variable **Knowledge_Score** puis applique l'algorithme **KMeans** en utilisant **k = 3**.  
-   Les clusters obtenus sont triés par ordre croissant de centroïdes pour leur assigner les labels suivants :  
-   - **Poor** : Cluster avec le centroïde le plus faible.
-   - **Moderate** : Cluster avec le centroïde intermédiaire.
-   - **Good** : Cluster avec le centroïde le plus élevé.
+   Le processus de clustering extrait et standardise le **Knowledge_Score** puis applique l'algorithme **KMeans** avec `k = 3`.  
+   Les clusters obtenus sont triés par ordre croissant des centroïdes et reçoivent les labels :
+   - **Poor** pour le cluster avec le centroïde le plus bas.
+   - **Moderate** pour le cluster intermédiaire.
+   - **Good** pour le cluster avec le centroïde le plus élevé.
 
-   Ce clustering segmentera les patients en trois groupes, visant idéalement une répartition d'environ 25 % avec de faibles connaissances, 67,4 % avec des connaissances modérées, et 7,8 % avec de bonnes connaissances.
+   Ce clustering vise une répartition d'environ 25 % de patients avec de faibles connaissances, 67,4 % avec des connaissances modérées et 7,8 % avec de bonnes connaissances.
 
-5. **Visualisation des Résultats**  
+5. **(Optionnel) Clustering Global**  
+   La classe `FullDatasetClustering` offre une analyse complémentaire, en réalisant un clustering sur l'ensemble du dataset après encodage one-hot et standardisation.  
+   **Pourquoi cette classe est-elle optionnelle ?**  
+   Elle permet d'explorer des patterns supplémentaires en combinant toutes les variables disponibles, mais elle n'est pas indispensable pour atteindre l'objectif principal qui est de segmenter les patients selon leur **Knowledge_Score**.
+
+6. **Visualisation des Résultats**  
    La classe `Visualizer` génère :
-   - Un histogramme pour la variable `Age`.
-   - Un histogramme du **Knowledge_Score** dont les barres sont colorées en fonction des clusters (Knowledge_Cluster).
-
-6. **(Optionnel) Clustering Global sur L'ensemble des Variables**  
-   La classe **FullDatasetClustering** permet d'effectuer une analyse globale en combinant l'encodage one-hot de variables catégorielles, la standardisation et l'application de **KMeans** sur l'ensemble du dataset.  
-   *Cette étape est optionnelle* car elle offre une analyse complémentaire et approfondie qui n'est pas indispensable pour segmenter les patients selon la compréhension des causes de l'infertilité masculine (objectif principal du projet).
+   - Un histogramme de la variable `Age`.
+   - Un histogramme coloré du **Knowledge_Score** indiquant les clusters (Knowledge_Cluster).
 
 ## Structure du Projet
 
@@ -106,44 +96,62 @@ Le projet est conçu pour une exécution dans [Google Colab](https://colab.resea
 └── programme_POO.ipynb
 ```
 
-- **main.py :** Contient l'ensemble du code source, incluant les classes `DataAnalyzer`, `Visualizer`, `KnowledgeClustering` et (optionnellement) `FullDatasetClustering`, ainsi que la fonction principale orchestrant le processus.
+- **main.py :** Contient l'ensemble du code source (classes `DataAnalyzer`, `Visualizer`, `KnowledgeClustering` et `FullDatasetClustering`, ainsi que la fonction principale).
 - **README.md :** Ce document.
-- **Male Infertility Data.xlsx:** Le dataset qui doit être téléversé lors de l'exécution.
+- **Male Infertility Data.xlsx:** Le dataset à téléverser lors de l'exécution.
 
-## Classes Principales
+## Diagramme de Classes et Explications
 
-### DataAnalyzer
-- **load_data() :**  
-  Charge le fichier Excel et crée un DataFrame.
-- **clean_data() :**  
-  Remplit les valeurs manquantes (médiane pour les numériques, mode pour les catégorielles).
-- **descriptive_statistics() & missing_values_report() :**  
-  Fournissent des statistiques descriptives et un rapport sur les valeurs manquantes.
-- **compute_composite_columns() :**  
-  Calcule le **Knowledge_Score** (somme des réponses aux questions Q8 à Q14) et crée la variable **Age_Group**.
+Le diagramme ci-dessous représente l'architecture orientée objet du projet :
 
-### Visualizer
-- **plot_histogram() :**  
-  Affiche un histogramme pour une variable numérique (ex. `Age`).
-- **plot_knowledge_clusters() :**  
-  Génère un histogramme du **Knowledge_Score** dont les barres sont colorées en fonction des clusters (Knowledge_Cluster).
+```mermaid
+classDiagram
+direction TB
+    class DataAnalyzer {
+        - filepath: string
+        - data: DataFrame
+        + load_data() : void
+        + clean_data() : void
+        + compute_composite_columns() : void
+        + descriptive_statistics() : void
+        + missing_values_report() : void
+        + filter_data(column: string, condition) : DataFrame
+    }
+    class Visualizer {
+        - data: DataFrame
+        + plot_histogram(column: string, bins: int) : void
+        + plot_knowledge_clusters() : void
+    }
+    class KnowledgeClustering {
+        - df: DataFrame
+        - model: KMeans
+        + run_clustering() : DataFrame
+        + print_cluster_frequencies() : void
+    }
+    class FullDatasetClustering {
+        - raw_data: DataFrame
+        - data: DataFrame
+        - scaler: StandardScaler
+        - kmeans_model: KMeans
+        - cluster_labels: array
+        + preprocess() : DataFrame
+        + run_clustering(n_clusters: int) : DataFrame
+        + visualize_clusters(n_components: int) : tuple
+    }
 
-### KnowledgeClustering
-- **run_clustering() :**  
-  Extrait la variable **Knowledge_Score**, la standardise et applique l'algorithme **KMeans** (avec *k = 3*).
-  Les clusters sont triés par ordre croissant de centroïdes et assignés aux labels "Poor", "Moderate" et "Good".
-- **print_cluster_frequencies() :**  
-  Affiche la répartition en pourcentage des clusters obtenus.
+    DataAnalyzer --> Visualizer : "utilise"
+    DataAnalyzer --> KnowledgeClustering : "transmet les données"
+    DataAnalyzer --> FullDatasetClustering : "optionnelle"
+```
 
-### FullDatasetClustering (Optionnel)
-- **preprocess() :**  
-  Combine les variables numériques et les variables catégorielles après encodage one-hot.
-- **run_clustering(n_clusters: int) :**  
-  Standardise les données et applique l'algorithme **KMeans**.
-- **visualize_clusters(n_components: int) :**  
-  Réduit la dimension via **PCA** pour visualiser les clusters dans un scatter plot en 2D.
-- **Pourquoi est-ce optionnel ?**  
-  Cette classe offre une analyse complémentaire du dataset global, permettant de segmenter les données sur l'ensemble des variables. Toutefois, le focus principal du projet étant la compréhension du **Knowledge_Score** et son utilisation pour la segmentation (en Poor, Moderate, Good), cette analyse globale n'est pas indispensable. Elle est donc présentée en option pour ceux qui souhaitent explorer davantage le dataset.
+### Explication du Diagramme
+
+- **DataAnalyzer** : Cette classe est responsable du chargement, du nettoyage et de la préparation des données (y compris la création du **Knowledge_Score** et du **Age_Group**).
+- **Visualizer** : Cette classe prend en charge la visualisation des données, telles que l'affichage d'histogrammes pour le `Age` et le **Knowledge_Score**.
+- **KnowledgeClustering** : Elle effectue un clustering ciblé basé sur le **Knowledge_Score**, segmentant les patients en trois groupes (Poor, Moderate, Good) à l'aide de l'algorithme **KMeans**.
+- **FullDatasetClustering** : Cette classe réalise un clustering sur l’ensemble des variables du dataset après encodage one-hot et standardisation.  
+  **Pourquoi cette classe est-elle optionnelle ?**  
+  Parce qu’elle fournit une analyse globale complémentaire qui va au-delà de l’objectif principal de segmentation par **Knowledge_Score**. Elle est utile pour ceux qui souhaitent explorer davantage le dataset, mais n'est pas indispensable pour répondre à la problématique principale.
 
 ## Références
 
@@ -161,6 +169,6 @@ Le projet est conçu pour une exécution dans [Google Colab](https://colab.resea
 ## Instructions pour l'Exécution
 
 1. Cloner ou télécharger le dépôt GitHub.
-2. Ouvrir le fichier `main.py` dans Google Colab ou dans un environnement de développement adapté.
+2. Ouvrir le fichier `main.py` dans Google Colab ou un environnement de développement adapté.
 3. Téléverser le fichier `Male Infertility Data.xlsx` lors de l'exécution du script.
-4. Lancer le script. Le programme chargera et nettoiera les données, affichera un histogramme pour la variable `Age`, puis (optionnellement) exécutera le clustering sur le **Knowledge_Score** pour segmenter les patients en trois groupes ("Poor", "Moderate", "Good") et visualisera les résultats.
+4. Lancer le script. Le programme chargera et nettoiera les données, générera un histogramme pour la variable `Age`, effectuera le clustering sur le **Knowledge_Score** pour segmenter les patients en trois groupes ("Poor", "Moderate", "Good") et affichera les résultats via des visualisations.
