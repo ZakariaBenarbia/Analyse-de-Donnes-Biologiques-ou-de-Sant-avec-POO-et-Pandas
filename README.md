@@ -50,7 +50,7 @@ Les objectifs incluent :
 
 Pour installer les dépendances, utilisez la commande suivante :
 
-```bash
+
 pip install pandas seaborn matplotlib scikit-learn
 
 Origine du Dataset
