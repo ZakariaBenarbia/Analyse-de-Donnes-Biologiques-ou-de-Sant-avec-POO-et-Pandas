@@ -78,7 +78,7 @@ Ce projet est conçu pour être exécuté dans [Google Colab](https://colab.rese
 
    Ce clustering vise une répartition d'environ 25 % de patients avec de faibles connaissances, 67,4 % avec des connaissances modérées et 7,8 % avec de bonnes connaissances.
 
-5.Fonctionnalités du Clustering (Features)
+5. **Fonctionnalités du Clustering (Features)**
 L'analyse de clustering repose principalement sur le Knowledge_Score, une fonctionnalité composite obtenue en faisant la somme des réponses aux questions Q8 à Q14. Ce score quantifie la compréhension des causes de l'infertilité masculine chez chaque patient. La classe KnowledgeClustering standardise ce score et applique l'algorithme KMeans avec k = 3
 
 6. **(Optionnel) Clustering Global**  
