@@ -1,7 +1,7 @@
 # Analyse de Données Biologiques et de Santé avec POO et Pandas
 
 ## Description
-
+J’ai réalisé ce projet dans le cadre du cours de Programmation Orientée Objet (POO) en Master 1 à l’Université de Constantine 1.
 Ce projet analyse un dataset de santé portant sur l'infertilité masculine en appliquant les principes de la Programmation Orientée Objet (POO) et la bibliothèque **Pandas**. Le dataset (*Male Infertility Data.xlsx*) comporte de nombreuses variables couvrant des aspects démographiques, biologiques et comportementaux de l'infertilité masculine. Le dataset provient de Mendeley Data et est accessible via ce [lien](https://data.mendeley.com/datasets/fyk47fnhfs/1).
 
 Ce projet s'inspire de l'article suivant :
