@@ -1,6 +1,4 @@
-# TP-Programmation-Orient-e-Objet
-
-# Analyse de Données Biologiques ou de Santé avec POO et Pandas
+# Analyse de Données Biologiques et de Santé avec POO et Pandas
 
 ## Description
 
