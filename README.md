@@ -92,8 +92,10 @@ Ce projet est conçu pour être exécuté dans [Google Colab](https://colab.rese
 ## Structure du Projet
 
 ```
+├── LICENSE
 ├── Male Infertility Data.xlsx
 ├── README.md
+├── diagramme de classes.png
 └── programme_POO.ipynb
 ```
 
